@@ -11,7 +11,20 @@ class TrajetModel extends DefaultModel
 
     public function findAvailable(): array
     {
-        $stmt = $this->db->query("SELECT * FROM {$this->table} WHERE places_disponibles > 0");
+         $sql = "
+            SELECT 
+                t.id_trajet,
+                t.date_depart,
+                t.date_arrivee,
+                t.places_disponibles,
+                ad.nom_agence AS agence_depart,
+                aa.nom_agence AS agence_arrivee
+            FROM {$this->table} t
+            JOIN agences ad ON t.id_agence_depart = ad.id_agence
+            JOIN agences aa ON t.id_agence_arrivee = aa.id_agence
+            WHERE t.places_disponibles > 0
+        ";
+        $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 

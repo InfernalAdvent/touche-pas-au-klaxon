@@ -7,5 +7,8 @@ set_exception_handler(function($e) {
     echo "<pre>Exception attrapée: " . $e->getMessage() . "\n" . $e->getTraceAsString() . "</pre>";
 });
 
+$scriptName = $_SERVER['SCRIPT_NAME']; 
+$basePath = str_replace('/index.php', '', $scriptName);
+
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../Routeur/Routeur.php';
