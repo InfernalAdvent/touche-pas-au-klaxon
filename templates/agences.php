@@ -11,7 +11,6 @@
         <?php foreach ($agences as $agence): ?>
             <li>
                 <?= htmlspecialchars($agence['nom_agence']) ?>
-                <a href="<?= $this->basePath ?>/agences/edit/<?= $agence['id_agence'] ?>">Modifier</a>
                 <a href="<?= $this->basePath ?>/agences/delete/<?= $agence['id_agence'] ?>" onclick="return confirm('Supprimer cette agence ?')">Supprimer</a>
             </li>
         <?php endforeach; ?>
