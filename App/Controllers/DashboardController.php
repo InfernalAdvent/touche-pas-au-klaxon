@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\TrajetModel;
 
 class DashboardController
 {
@@ -21,9 +22,15 @@ class DashboardController
             return new RedirectResponse($this->basePath . '/login');
         }
 
-        $name = $_SESSION['user']['name'] ?? 'Utilisateur';
+        $userId = $_SESSION['user']['id'];
+        $trajetModel = new TrajetModel();
+        $trajets = $trajetModel->findAvailable();
+        $basePath = $this->basePath;
 
-        $content = "<h1>Bienvenue, $name !</h1><p>Vous êtes connecté.</p>";
+        ob_start();
+        require __DIR__ . '/../../templates/dashboard.php';
+        $content = ob_get_clean();
+
         return new Response($content);
     }
 }

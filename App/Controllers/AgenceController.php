@@ -58,36 +58,8 @@ class AgenceController
         }
 
         ob_start();
-        require __DIR__ . '/../../templates/agence_add.php';
-        $content = ob_get_clean();
-
-        return new Response($content);
-    }
-
-    // Édition d'une agence
-    public function edit(Request $request, int $id): Response
-    {
-        if ($redirect = $this->checkAdmin()) {
-            return $redirect;
-        }
-
-        $agenceModel = new AgenceModel();
-        $agence = $agenceModel->findById($id);
-
-        if (!$agence) {
-            return new Response('Agence introuvable', 404);
-        }
-
-        if ($request->getMethod() === 'POST') {
-            $nom = trim($request->request->get('nom_agence'));
-            if ($nom) {
-                $agenceModel->update($id, ['nom_agence' => $nom]);
-                return new RedirectResponse($this->basePath . '/agences');
-            }
-        }
-
-        ob_start();
-        require __DIR__ . '/../../templates/agence_edit.php';
+        $basePath = $this->basePath;
+        require __DIR__ . '/../../templates/agences_add.php';
         $content = ob_get_clean();
 
         return new Response($content);
@@ -96,13 +68,15 @@ class AgenceController
     // Suppression d'une agence
     public function delete(int $id): Response
     {
-        if ($redirect = $this->checkAdmin()) {
-            return $redirect;
-        }
+        //if ($redirect = $this->checkAdmin()) {
+          //  return $redirect;
+        //}
 
-        $agenceModel = new AgenceModel();
-        $agenceModel->delete($id);
+        //$agenceModel = new AgenceModel();
+        //$agenceModel->delete($id);
 
-        return new RedirectResponse($this->basePath . '/agences');
+        //return new RedirectResponse($this->basePath . '/agences');
+        echo "Suppression agence id = $id";
+        exit; // Pour stopper et voir le message
     }
 }
