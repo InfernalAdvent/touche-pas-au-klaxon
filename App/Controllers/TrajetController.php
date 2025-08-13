@@ -1,125 +1,107 @@
 <?php
 namespace App\Controllers;
 
-use Symfony\Component\HttpFoundation\Response;
 use App\Models\TrajetModel;
 
-
-class TrajetController
+class TrajetController extends BaseController
 {
-    private string $basePath;
-
-    public function __construct(string $basePath = '')
-    {
-        $this->basePath = $basePath;
-    }
-
-    public function trajets(): Response
+    public function trajets()
     {
         $trajetModel = new TrajetModel();
         $trajets = $trajetModel->findAvailable();
-        $basePath = $this->basePath;
 
-        ob_start();
         require __DIR__ . '/../../templates/trajets.php';
-        $content = ob_get_clean();
-
-        return new Response($content);
     }
-    public function details(int $id): Response
-    {
-        error_log("TrajetController::details called with id = $id");
+
+    public function details(int $id)
+    {   
+        $this->checkLoggedIn();
+        
         $trajetModel = new TrajetModel();
         $details = $trajetModel->findDetailsById($id);
 
         if (!$details) {
-            return new Response("Trajet non trouvé", 404);
+            http_response_code(404);
+            echo "Trajet non trouvé";
+            exit;
         }
 
-        $basePath = $this->basePath;
-        ob_start();
         require __DIR__ . '/../../templates/trajetdetails.php';
-        $content = ob_get_clean();
-
-        return new Response($content);
     }
-    public function edit(int $id): Response
+
+    public function edit(int $id)
     {
-        session_start();
-        $userId = $_SESSION['user']['id'] ?? null;
-        if (!$userId) {
-            header('Location: ' . $this->basePath . '/login');
-            exit;
-        }
+        $this->checkLoggedIn();
 
         $trajetModel = new TrajetModel();
         $trajet = $trajetModel->findById($id);
 
-        if (!$trajet || $trajet['id_auteur'] != $userId) {
-            return new Response('Accès refusé ou trajet introuvable', 403);
-        }
-
-        $basePath = $this->basePath;
-        ob_start();
-        require __DIR__ . '/../../templates/trajet_edit.php'; // à créer, formulaire d'édition
-        $content = ob_get_clean();
-
-        return new Response($content);
-    }
-
-    public function update(int $id): Response
-    {
-        session_start();
-        $userId = $_SESSION['user']['id'] ?? null;
-        if (!$userId) {
-            header('Location: ' . $this->basePath . '/login');
+        if (!$trajet || 
+        (
+            $trajet['id_auteur'] != $_SESSION['user']['id'] && 
+            $_SESSION['user']['role'] !== 'admin'
+        )) {
+            http_response_code(403);
+            echo "Accès refusé ou trajet introuvable";
             exit;
         }
+
+        require __DIR__ . '/../../templates/trajet_edit.php';
+    }
+
+    public function update(int $id)
+    {
+        $this->checkLoggedIn();
 
         $trajetModel = new TrajetModel();
         $trajet = $trajetModel->findById($id);
 
-        if (!$trajet || $trajet['id_auteur'] != $userId) {
-            return new Response('Accès refusé ou trajet introuvable', 403);
+        if (!$trajet || 
+        (
+            $trajet['id_auteur'] != $_SESSION['user']['id'] && 
+            $_SESSION['user']['role'] !== 'admin'
+        )) {
+            http_response_code(403);
+            echo "Accès refusé ou trajet introuvable";
+            exit;
         }
 
-        // Exemple simplifié : on récupère $_POST (à valider strictement !)
         $data = [
             'date_depart' => $_POST['date_depart'] ?? $trajet['date_depart'],
             'date_arrivee' => $_POST['date_arrivee'] ?? $trajet['date_arrivee'],
             'places_disponibles' => $_POST['places_disponibles'] ?? $trajet['places_disponibles'],
-            // ... autres champs si besoin
         ];
 
-        $success = $trajetModel->update($id, $data);
-
-        if ($success) {
-            header('Location: ' . $this->basePath . '/dashboard');
+        if ($trajetModel->update($id, $data)) {
+            header('Location: /touche-pas-au-klaxon/public/dashboard');
             exit;
         } else {
-            return new Response('Erreur lors de la mise à jour', 500);
+            http_response_code(500);
+            echo "Erreur lors de la mise à jour";
+            exit;
         }
     }
 
-    public function delete(int $id): Response
+    public function delete(int $id)
     {
-        session_start();
-        $userId = $_SESSION['user']['id'] ?? null;
-        if (!$userId) {
-            header('Location: ' . $this->basePath . '/login');
-            exit;
-        }
+        $this->checkLoggedIn();
 
         $trajetModel = new TrajetModel();
         $trajet = $trajetModel->findById($id);
 
-        if (!$trajet || $trajet['id_auteur'] != $userId) {
-            return new Response('Accès refusé ou trajet introuvable', 403);
+        if (!$trajet || 
+        (
+            $trajet['id_auteur'] != $_SESSION['user']['id'] && 
+            $_SESSION['user']['role'] !== 'admin'
+        )) {
+            http_response_code(403);
+            echo "Accès refusé ou trajet introuvable";
+            exit;
         }
 
         $trajetModel->delete($id);
 
-        header('Location: ' . $this->basePath . '/dashboard');
+        header('Location: /touche-pas-au-klaxon/public/dashboard');
         exit;
     }
 }

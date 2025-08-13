@@ -6,12 +6,12 @@
 </head>
 <body>
     <h1>Liste des agences</h1>
-    <a href="<?= $this->basePath ?>/agences/add">Ajouter une agence</a>
+    <a href="/touche-pas-au-klaxon/public/agences/add">Ajouter une agence</a>
     <ul>
         <?php foreach ($agences as $agence): ?>
             <li>
                 <?= htmlspecialchars($agence['nom_agence']) ?>
-                <a href="<?= $this->basePath ?>/agences/delete/<?= $agence['id_agence'] ?>" onclick="return confirm('Supprimer cette agence ?')">Supprimer</a>
+                <a href="/touche-pas-au-klaxon/public/agences/delete/<?= $agence['id_agence'] ?>" onclick="return confirm('Supprimer cette agence ?')">Supprimer</a>
             </li>
         <?php endforeach; ?>
     </ul>

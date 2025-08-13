@@ -6,11 +6,11 @@
 </head>
 <body>
     <h1>Ajouter une agence</h1>
-    <form action="<?= $basePath ?>/agences/add" method="POST">
+    <form action="/touche-pas-au-klaxon/public/agences/add" method="POST">
         <label>Nom de l'agence :
             <input type="text" name="nom_agence" value="" required>
         </label>
-        <button type="submit">Enregistrer</button>
+        <button type="submit">Valider</button>
     </form>
 </body>
 </html>

@@ -11,6 +11,6 @@
     <p><strong>Email :</strong> <?= htmlspecialchars($details['email_user']) ?></p>
     <p><strong>Places totales :</strong> <?= htmlspecialchars($details['places_totales']) ?></p>
 
-    <a href="<?= $basePath ?>/">Retour à la liste des trajets</a>
+    <a href="/touche-pas-au-klaxon/public/dashboard">Retour à la liste des trajets</a>
 </body>
 </html>

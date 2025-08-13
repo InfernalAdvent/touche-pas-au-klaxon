@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>Trajets proposés</h1>
+    <a href="/touche-pas-au-klaxon/public/login">Se connecter</a>
     <table>
         <tr>
             <th>Départ</th>

@@ -1,60 +1,75 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+class Router
+{
+    private array $routes = [];
 
-use Buki\Router\Router;
-use Symfony\Component\HttpFoundation\Response;
+    public function get(string $path, string $action)
+    {
+        $this->addRoute('GET', $path, $action);
+    }
 
-if (!isset($basePath)) {
-    $basePath = ''; // fallback si jamais
+    public function post(string $path, string $action)
+    {
+        $this->addRoute('POST', $path, $action);
+    }
+
+    private function addRoute(string $method, string $path, string $action)
+    {
+        // Normaliser le chemin : toujours sans slash final sauf pour "/"
+        $path = '/' . trim($path, '/');
+        if ($path === '/index.php') $path = '/';
+        $this->routes[$method][$path] = $action;
+    }
+
+    public function dispatch()
+    {
+        // Récupère l'URI demandée
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+        // Supprime le base path si nécessaire (chemin vers public)
+        $basePath = '/touche-pas-au-klaxon/public';
+        if (strpos($uri, $basePath) === 0) {
+            $uri = substr($uri, strlen($basePath));
+        }
+
+        // Normaliser l'URI
+        $uri = '/' . trim($uri, '/');
+
+        $method = $_SERVER['REQUEST_METHOD'];
+
+        foreach ($this->routes[$method] ?? [] as $path => $action) {
+            // Convertit les {param} en regex
+            $pattern = preg_replace('#\{([a-zA-Z0-9_]+)\}#', '([0-9a-zA-Z_-]+)', $path);
+            $pattern = rtrim($pattern, '/'); // supprime le slash final
+            if ($pattern === '') $pattern = '/'; // pour la racine
+            $pattern = "#^" . $pattern . "$#";
+
+            if (preg_match($pattern, $uri, $matches)) {
+                array_shift($matches); // supprime la correspondance complète
+                return $this->callAction($action, $matches);
+            }
+        }
+
+        // Route non trouvée
+        http_response_code(404);
+        echo "404 Not Found";
 }
 
-$router = new Router([
-    'base_folder' => $basePath,
-    'namespace' => 'App\\Controllers'
-]);
 
-$userController = new App\Controllers\UserController($basePath);
-$loginController = new App\Controllers\LoginController($basePath);
-$dashboardController = new App\Controllers\DashboardController($basePath);
-$trajetController = new App\Controllers\TrajetController($basePath);
-$agenceController = new App\Controllers\AgenceController($basePath);
-
-
-$router->get('/dashboard', fn() => $dashboardController->index());
-
-$router->get('/', fn() => $trajetController->trajets());
-
-$router->get('/users', fn() => $userController->users());
-
-$router->get('/login', fn() => $loginController->login());
-$router->post('/login', fn() => $loginController->login());
-$router->get('/logout', fn() => $loginController->logout());
-
-$router->get('/trajet/edit/[i:id]', fn($id) => $trajetController->edit($id));
-$router->post('/trajet/edit/[i:id]', fn($id) => $trajetController->update($id));
-$router->get('/trajet/delete/[i:id]', fn($id) => $trajetController->delete($id));
-
-$router->get('/agences', fn() => $agenceController->agences());
-$router->get('/agences/add', fn() => $agenceController->add(\Symfony\Component\HttpFoundation\Request::createFromGlobals()));
-$router->post('/agences/add', fn() => $agenceController->add(\Symfony\Component\HttpFoundation\Request::createFromGlobals()));
-$router->get('/agences/delete/[i:id]', fn($id) => $agenceController->delete($id));
-
-$router->get('/trajet/[i:id]', fn($id) => $trajetController->details($id));
-
-
-set_exception_handler(function($e) {
-    echo "<pre>Exception attrapée: " . $e->getMessage() . "\n" . $e->getTraceAsString() . "</pre>";
-});
-
-try {
-    $response = $router->run();
-
-if ($response instanceof Response) {
-    $response->send();
-} else {
-    echo $response;
-}
-
-} catch (Exception $e) {
-    echo "<pre>Exception try/catch: " . $e->getMessage() . "\n" . $e->getTraceAsString() . "</pre>";
+    private function callAction(string $action, array $params)
+    {
+        [$controller, $method] = explode('@', $action);
+        if (!class_exists($controller)) {
+            http_response_code(500);
+            echo "Controller '$controller' non trouvé";
+            exit;
+        }
+        $controllerInstance = new $controller();
+        if (!method_exists($controllerInstance, $method)) {
+            http_response_code(500);
+            echo "Méthode '$method' non trouvée dans le controller '$controller'";
+            exit;
+        }
+        call_user_func_array([$controllerInstance, $method], $params);
+    }
 }

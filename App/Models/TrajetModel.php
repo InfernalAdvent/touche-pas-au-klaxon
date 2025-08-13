@@ -43,7 +43,7 @@ class TrajetModel extends DefaultModel
     {
         $sql = "SELECT u.prenom_user, u.nom_user, u.telephone_user, u.email_user, t.places_totales
                 FROM {$this->table} t
-                JOIN users u ON t.id_user = u.id_user
+                JOIN users u ON t.id_auteur = u.id_user
                 WHERE t.id_trajet = :id";
 
         $stmt = $this->db->prepare($sql);

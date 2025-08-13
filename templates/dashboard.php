@@ -23,7 +23,7 @@
             $arrivee = new DateTime($trajet['date_arrivee']);
             ?>
         <tr>
-            <td><a href="<?= $basePath ?>/trajet/<?= $trajet['id_trajet'] ?>">
+            <td><a href="/touche-pas-au-klaxon/public/trajet/<?= $trajet['id_trajet'] ?>">
                 <?= htmlspecialchars($trajet['agence_depart']) ?>
             </a></td>
             <td><?= $depart->format('d/m/Y') ?></td>
@@ -33,10 +33,9 @@
             <td><?= $arrivee->format('H:i') ?></td>
             <td><?= htmlspecialchars($trajet['places_disponibles']) ?></td>
             <td>
-            <?php if ((int)$trajet['id_auteur'] === (int)$userId): ?>
-                <!-- Affiche les boutons modifier / supprimer -->
-                <a href="<?= $basePath ?>/trajet/edit/<?= $trajet['id_trajet'] ?>">Modifier</a>
-                <a href="<?= $basePath ?>/trajet/delete/<?= $trajet['id_trajet'] ?>" onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
+            <?php if ($role === 'admin' || (int)$trajet['id_auteur'] === (int)$userId): ?>
+                <a href="/touche-pas-au-klaxon/public/trajet/edit/<?= $trajet['id_trajet'] ?>">Modifier</a>
+                <a href="/touche-pas-au-klaxon/public/trajet/delete/<?= $trajet['id_trajet'] ?>" onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
             <?php endif; ?>
             </td>
         </tr>
