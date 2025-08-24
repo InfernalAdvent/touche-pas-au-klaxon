@@ -12,5 +12,6 @@
         </label>
         <button type="submit">Valider</button>
     </form>
+    <a href="/touche-pas-au-klaxon/public/agences">Retour</a>
 </body>
 </html>

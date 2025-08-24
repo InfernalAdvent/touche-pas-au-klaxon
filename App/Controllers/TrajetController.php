@@ -16,7 +16,7 @@ class TrajetController extends BaseController
     public function details(int $id)
     {   
         $this->checkLoggedIn();
-        
+
         $trajetModel = new TrajetModel();
         $details = $trajetModel->findDetailsById($id);
 
@@ -103,5 +103,43 @@ class TrajetController extends BaseController
 
         header('Location: /touche-pas-au-klaxon/public/dashboard');
         exit;
+    }
+
+    public function add()
+    {
+        $this->checkLoggedIn();
+
+        $agenceModel = new \App\Models\AgenceModel();
+        $agences = $agenceModel->findAll();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id_agence_depart = (int)($_POST['agence_depart'] ?? 0);
+            $id_agence_arrivee = (int)($_POST['agence_arrivee'] ?? 0);
+            $date_depart = $_POST['date_depart'] ?? '';
+            $date_arrivee = $_POST['date_arrivee'] ?? '';
+            $places_disponibles = (int)($_POST['places_disponibles'] ?? 0);
+            $places_totales = (int)($_POST['places_totales'] ?? 0);
+            if ($id_agence_depart &&
+            $id_agence_arrivee &&
+            $date_depart &&
+            $date_arrivee &&
+            $places_disponibles &&
+            $places_totales) {
+                $trajetModel = new TrajetModel();
+                $trajetModel->insert([
+                    'id_agence_depart' => $id_agence_depart,
+                    'id_agence_arrivee' => $id_agence_arrivee,
+                    'date_depart' => date('Y-m-d H:i:s', strtotime($date_depart)),
+                    'date_arrivee' => date('Y-m-d H:i:s', strtotime($date_arrivee)),
+                    'places_disponibles' => $places_disponibles,
+                    "places_totales" => $places_totales,
+                    'id_auteur' => $_SESSION['user']['id']
+                ]);
+                header('Location: /touche-pas-au-klaxon/public/dashboard');
+                exit;
+            }
+        }
+
+        require __DIR__ . '/../../templates/trajets_add.php';
     }
 }

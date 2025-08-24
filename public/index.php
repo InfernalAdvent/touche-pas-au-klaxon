@@ -19,9 +19,12 @@ $router->get('/login', 'App\Controllers\LoginController@login');
 $router->post('/login', 'App\Controllers\LoginController@login');
 $router->get('/logout', 'App\Controllers\LoginController@logout');
 
+$router->get('/trajet/add', 'App\Controllers\TrajetController@add');
+$router->post('/trajet/add', 'App\Controllers\TrajetController@add');
 $router->get('/trajet/edit/{id}', 'App\Controllers\TrajetController@edit');
 $router->post('/trajet/update/{id}', 'App\Controllers\TrajetController@update');
 $router->get('/trajet/delete/{id}', 'App\Controllers\TrajetController@delete');
+
 
 $router->get('/agences', 'App\Controllers\AgenceController@agences');
 $router->get('/agences/add', 'App\Controllers\AgenceController@add');

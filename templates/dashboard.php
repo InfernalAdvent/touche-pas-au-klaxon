@@ -5,7 +5,23 @@
     <title>Mes trajets</title>
 </head>
 <body>
-    <h1>Mes trajets</h1>
+    <header>
+    <nav>
+        <span><strong>Touche pas au klaxon</strong></span>
+        <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
+        <div class="admin-links">
+            <a href ="/touche-pas-au-klaxon/public/trajet/add">Trajets</a>
+            <a href ="/touche-pas-au-klaxon/public/agences">Agences</a>
+            <a href ="/touche-pas-au-klaxon/public/users">Utilisateurs</a>
+        </div>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'user'): ?>
+            <a href ="/touche-pas-au-klaxon/public/trajet/add">Créer un trajet</a>
+        <?php endif; ?>
+        <a href ="/touche-pas-au-klaxon/public/logout">Déconnexion</a>
+    </nav>
+    </header>
+    <h1>Trajets proposés</h1>
     <table>
         <tr>
             <th>Départ</th>
@@ -15,7 +31,7 @@
             <th>Date</th>
             <th>Heure</th>
             <th>Places</th>
-            <th>Actions</th>
+            <th></th>
         </tr>
         <?php foreach ($trajets as $trajet): ?>
             <?php 
@@ -23,9 +39,7 @@
             $arrivee = new DateTime($trajet['date_arrivee']);
             ?>
         <tr>
-            <td><a href="/touche-pas-au-klaxon/public/trajet/<?= $trajet['id_trajet'] ?>">
-                <?= htmlspecialchars($trajet['agence_depart']) ?>
-            </a></td>
+            <td><?= htmlspecialchars($trajet['agence_depart']) ?></td>
             <td><?= $depart->format('d/m/Y') ?></td>
             <td><?= $depart->format('H:i') ?></td>
             <td><?= htmlspecialchars($trajet['agence_arrivee']) ?></td>
@@ -33,6 +47,7 @@
             <td><?= $arrivee->format('H:i') ?></td>
             <td><?= htmlspecialchars($trajet['places_disponibles']) ?></td>
             <td>
+                <a href="/touche-pas-au-klaxon/public/trajet/<?= $trajet['id_trajet'] ?>">Infos</a>
             <?php if ($role === 'admin' || (int)$trajet['id_auteur'] === (int)$userId): ?>
                 <a href="/touche-pas-au-klaxon/public/trajet/edit/<?= $trajet['id_trajet'] ?>">Modifier</a>
                 <a href="/touche-pas-au-klaxon/public/trajet/delete/<?= $trajet['id_trajet'] ?>" onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
@@ -41,5 +56,8 @@
         </tr>
         <?php endforeach; ?>
     </table>
+    <footer>
+        <div>© 2025 - CENEF - MVC PHP</div>
+    </footer>
 </body>
 </html>

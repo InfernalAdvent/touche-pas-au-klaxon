@@ -5,8 +5,14 @@
     <title>Accueil</title>
 </head>
 <body>
+    <header>
+    <nav>
+        <span><strong>Touche pas au klaxon</strong></span>
+        <a href="/touche-pas-au-klaxon/public/login">Se connecter</a>
+    </nav>
+    <header>
     <h1>Trajets proposés</h1>
-    <a href="/touche-pas-au-klaxon/public/login">Se connecter</a>
+    
     <table>
         <tr>
             <th>Départ</th>
@@ -35,5 +41,8 @@
 
         <?php endforeach; ?>
     </table>
+    <footer>
+        <div>© 2025 - CENEF - MVC PHP</div>
+    </footer>
 </body>
 </html>
