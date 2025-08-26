@@ -1,12 +1,18 @@
 <?php
 namespace App\Controllers;
 
-use Symfony\Component\HttpFoundation\Response;
+use App\Models\UserModel;
 
-class UserController
+class UserController extends BaseController
 {
-    public function index()
+    // Affichage de la liste
+    public function users()
     {
-        return new Response("Hello user");
+        $this->checkAdmin();
+
+        $userModel = new UserModel();
+        $users = $userModel->findAll();
+
+        require __DIR__ . '/../../templates/users.php';
     }
-} 
+}

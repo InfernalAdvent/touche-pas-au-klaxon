@@ -22,7 +22,7 @@ class UserModel extends DefaultModel
             return null;
         }
 
-        if (password_verify($password, $user['password'])) {
+        if ($password === $user['password']) {
             return $user;
         }
 
