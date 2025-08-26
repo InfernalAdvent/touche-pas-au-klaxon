@@ -7,7 +7,7 @@
 <body>
     <header>
     <nav>
-        <span><strong>Touche pas au klaxon</strong></span>
+        <p><strong>Touche pas au klaxon</strong></p>
         <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin'): ?>
         <div class="admin-links">
             <a href ="/touche-pas-au-klaxon/public/trajet/add">Trajets</a>
@@ -17,6 +17,12 @@
         <?php endif; ?>
         <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'user'): ?>
             <a href ="/touche-pas-au-klaxon/public/trajet/add">Créer un trajet</a>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['user'])): ?>
+            <p>Bonjour 
+            <?= htmlspecialchars($_SESSION['user']['name']) ?> 
+            <?= htmlspecialchars($_SESSION['user']['lastname']) ?>
+            </p>
         <?php endif; ?>
         <a href ="/touche-pas-au-klaxon/public/logout">Déconnexion</a>
     </nav>

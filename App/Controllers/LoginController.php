@@ -26,6 +26,7 @@ class LoginController extends BaseController
                 $_SESSION['user'] = [
                     'id' => $user['id_user'],
                     'name' => $user['prenom_user'],
+                    'lastname' => $user['nom_user'],
                     'email'=> $user['email_user'],
                     'role'=> $user['role']
                 ];
