@@ -1,0 +1,32 @@
+// 🎨 Palette custom (exemple : couleurs Bootstrap par défaut)
+$primary:   #0d6efd;
+$secondary: #6c757d;
+$success:   #198754;
+$danger:    #dc3545;
+$warning:   #ffc107;
+$info:      #0dcaf0;
+$light:     #f8f9fa;
+$dark:      #212529;
+
+// -------------------------------------------------
+// ⚡ Import Bootstrap (ordre recommandé)
+// -------------------------------------------------
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+
+// -------------------------------------------------
+// ⚡ Import Bootswatch Sketchy (variables avant bootstrap complet)
+// -------------------------------------------------
+@import "bootswatch/dist/sketchy/variables";
+
+// -------------------------------------------------
+// ⚡ Import complet Bootstrap (⚠️ bien mettre le chemin scss/bootstrap)
+// -------------------------------------------------
+@import "bootstrap/scss/bootstrap";
+
+// -------------------------------------------------
+// ⚡ Overrides Sketchy
+// -------------------------------------------------
+@import "bootswatch/dist/sketchy/bootswatch";

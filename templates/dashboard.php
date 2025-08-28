@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Mes trajets</title>
+    <title>Trajets proposés</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <header>

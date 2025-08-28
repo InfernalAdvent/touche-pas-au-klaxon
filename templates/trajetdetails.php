@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Détails du trajet</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <h1>Détails du trajet</h1>
