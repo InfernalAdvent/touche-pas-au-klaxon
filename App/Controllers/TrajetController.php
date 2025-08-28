@@ -10,7 +10,7 @@ class TrajetController extends BaseController
         $trajetModel = new TrajetModel();
         $trajets = $trajetModel->findAvailable();
 
-        require __DIR__ . '/../../templates/trajets.php';
+        require __DIR__ . '/../../templates/home.php';
     }
 
     public function details(int $id)
@@ -73,7 +73,7 @@ class TrajetController extends BaseController
         ];
 
         if ($trajetModel->update($id, $data)) {
-            header('Location: /touche-pas-au-klaxon/public/dashboard');
+            header('Location: /touche-pas-au-klaxon/public');
             exit;
         } else {
             http_response_code(500);
@@ -101,7 +101,7 @@ class TrajetController extends BaseController
 
         $trajetModel->delete($id);
 
-        header('Location: /touche-pas-au-klaxon/public/dashboard');
+        header('Location: /touche-pas-au-klaxon/public');
         exit;
     }
 
@@ -135,7 +135,7 @@ class TrajetController extends BaseController
                     "places_totales" => $places_totales,
                     'id_auteur' => $_SESSION['user']['id']
                 ]);
-                header('Location: /touche-pas-au-klaxon/public/dashboard');
+                header('Location: /touche-pas-au-klaxon/public');
                 exit;
             }
         }

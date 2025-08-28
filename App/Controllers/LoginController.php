@@ -32,9 +32,9 @@ class LoginController extends BaseController
                 ];
 
                 if ($user['role'] === 'admin') {
-                    header('Location: /touche-pas-au-klaxon/public/dashboard');
+                    header('Location: /touche-pas-au-klaxon/public');
                 } else {
-                    header('Location: /touche-pas-au-klaxon/public/dashboard');
+                    header('Location: /touche-pas-au-klaxon/public');
                 }
                 exit;
             } else {

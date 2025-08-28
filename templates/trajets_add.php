@@ -38,6 +38,6 @@
         </label>
         <button type="submit">Ajouter</button>
     </form>
-    <a href="/touche-pas-au-klaxon/public/dashboard">Retour au dashboard</a>
+    <a href="/touche-pas-au-klaxon/public">Retour à la liste des trajets</a>
 </body>
 </html>

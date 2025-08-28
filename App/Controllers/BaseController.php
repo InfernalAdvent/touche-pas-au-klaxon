@@ -15,7 +15,7 @@ class BaseController
     {
         session_start();
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-            header('Location: /touche-pas-au-klaxon/public/dashboard');
+            header('Location: /touche-pas-au-klaxon/public');
             exit;
         }
     }

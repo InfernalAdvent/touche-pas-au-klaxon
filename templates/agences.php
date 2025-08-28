@@ -16,5 +16,6 @@
             </li>
         <?php endforeach; ?>
     </ul>
+    <a href="/touche-pas-au-klaxon/public">Retour à la liste des trajets</a>
 </body>
 </html>
