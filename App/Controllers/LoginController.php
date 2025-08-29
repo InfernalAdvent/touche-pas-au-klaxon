@@ -42,7 +42,7 @@ class LoginController extends BaseController
                 http_response_code(401);
             }
         } else {
-            require __DIR__ . '/../../templates/login.php';
+            require __DIR__ . '/../../templates/pages/login.php';
         }
     }
 

@@ -13,7 +13,7 @@ class AgenceController extends BaseController
         $agenceModel = new AgenceModel();
         $agences = $agenceModel->findAll();
 
-        require __DIR__ . '/../../templates/agences.php';
+        require __DIR__ . '/../../templates/pages/agences.php';
     }
 
     // Ajout d'une agence
@@ -31,7 +31,7 @@ class AgenceController extends BaseController
             }
         }
 
-        require __DIR__ . '/../../templates/agences_add.php';
+        require __DIR__ . '/../../templates/pages/agences_add.php';
     }
 
     // Suppression d'une agence

@@ -10,7 +10,7 @@ class TrajetController extends BaseController
         $trajetModel = new TrajetModel();
         $trajets = $trajetModel->findAvailable();
 
-        require __DIR__ . '/../../templates/home.php';
+        require __DIR__ . '/../../templates/pages/home.php';
     }
 
     public function details(int $id)
@@ -26,7 +26,7 @@ class TrajetController extends BaseController
             exit;
         }
 
-        require __DIR__ . '/../../templates/trajetdetails.php';
+        require __DIR__ . '/../../templates/pages/trajetdetails.php';
     }
 
     public function edit(int $id)
@@ -46,7 +46,7 @@ class TrajetController extends BaseController
             exit;
         }
 
-        require __DIR__ . '/../../templates/trajet_edit.php';
+        require __DIR__ . '/../../templates/pages/trajet_edit.php';
     }
 
     public function update(int $id)
@@ -140,6 +140,6 @@ class TrajetController extends BaseController
             }
         }
 
-        require __DIR__ . '/../../templates/trajets_add.php';
+        require __DIR__ . '/../../templates/pages/trajets_add.php';
     }
 }
