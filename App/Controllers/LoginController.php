@@ -32,9 +32,9 @@ class LoginController extends BaseController
                 ];
 
                 if ($user['role'] === 'admin') {
-                    header('Location: /touche-pas-au-klaxon/public/dashboard');
+                    header('Location: /touche-pas-au-klaxon/public');
                 } else {
-                    header('Location: /touche-pas-au-klaxon/public/dashboard');
+                    header('Location: /touche-pas-au-klaxon/public');
                 }
                 exit;
             } else {
@@ -42,7 +42,7 @@ class LoginController extends BaseController
                 http_response_code(401);
             }
         } else {
-            require __DIR__ . '/../../templates/login.php';
+            require __DIR__ . '/../../templates/pages/login.php';
         }
     }
 

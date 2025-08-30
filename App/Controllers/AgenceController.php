@@ -13,7 +13,7 @@ class AgenceController extends BaseController
         $agenceModel = new AgenceModel();
         $agences = $agenceModel->findAll();
 
-        require __DIR__ . '/../../templates/agences.php';
+        require __DIR__ . '/../../templates/pages/agences.php';
     }
 
     // Ajout d'une agence
@@ -25,13 +25,25 @@ class AgenceController extends BaseController
             $nom = trim($_POST['nom_agence'] ?? '');
             if ($nom) {
                 $agenceModel = new AgenceModel();
+
+                $existing = $agenceModel->findByName($nom);
+                if ($existing) {
+                    $_SESSION['errors'][] = "Cette agence existe déjà.";
+                    header('Location: /touche-pas-au-klaxon/public/agences');
+                    exit;
+            }
                 $agenceModel->insert(['nom_agence' => $nom]);
+                $_SESSION['success'][] = "L'agence a été ajoutée";
+                header('Location: /touche-pas-au-klaxon/public/agences');
+                exit;
+            } else {
+                $_SESSION['errors'][] = "Le nom de l'agence est requis.";
                 header('Location: /touche-pas-au-klaxon/public/agences');
                 exit;
             }
         }
 
-        require __DIR__ . '/../../templates/agences_add.php';
+        require __DIR__ . '/../../templates/pages/agences.php';
     }
 
     // Suppression d'une agence

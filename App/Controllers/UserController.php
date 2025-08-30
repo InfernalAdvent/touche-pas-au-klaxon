@@ -13,6 +13,6 @@ class UserController extends BaseController
         $userModel = new UserModel();
         $users = $userModel->findAll();
 
-        require __DIR__ . '/../../templates/users.php';
+        require __DIR__ . '/../../templates/pages/users.php';
     }
 }

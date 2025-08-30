@@ -1,0 +1,1 @@
+<p class="custom-secondary">© 2025 - CENEF - MVC PHP</p>
