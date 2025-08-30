@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/session.php'; 
+require __DIR__ . '/components/session.php'; 
 ?>
 
 <!DOCTYPE html>
@@ -13,19 +13,16 @@ require __DIR__ . '/session.php';
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- Header -->
     <header>
         <div class="container mt-4 mb-2">
             <?php require __DIR__ . '/components/header.php'; ?>
         </div>
     </header>
 
-    <!-- Contenu principal -->
     <main class="container mt-4">
         <?= $content ?>
     </main>
 
-    <!-- Footer -->
     <footer class="text-center mt-auto py-3">
         <?php require __DIR__ . '/components/footer.php'; ?>
     </footer>

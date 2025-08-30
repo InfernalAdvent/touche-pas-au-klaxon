@@ -23,20 +23,12 @@ class TrajetModel extends DefaultModel
             FROM {$this->table} t
             JOIN agences ad ON t.id_agence_depart = ad.id_agence
             JOIN agences aa ON t.id_agence_arrivee = aa.id_agence
-            WHERE t.places_disponibles > 0
-        ";
+            WHERE t.date_depart >= NOW()
+            AND t.places_disponibles > 0
+            ORDER BY t.date_depart ASC";
+
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
-    }
-
-    public function decrementPlacesDisponibles(int $id): bool
-    {
-        $stmt = $this->db->prepare("
-            UPDATE {$this->table}
-            SET places_disponibles = places_disponibles - 1
-            WHERE {$this->primaryKey} = :id AND places_disponibles > 0
-        ");
-        return $stmt->execute(['id' => $id]);
     }
 
    public function findDetailsById(int $id): ?array
@@ -51,26 +43,6 @@ class TrajetModel extends DefaultModel
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         return $result ?: null;
-    }
-    public function findByUser(int $userId): array
-    {
-        $sql = "
-            SELECT 
-                t.id_trajet,
-                t.date_depart,
-                t.date_arrivee,
-                t.places_disponibles,
-                ad.nom_agence AS agence_depart,
-                aa.nom_agence AS agence_arrivee
-            FROM {$this->table} t
-            JOIN agences ad ON t.id_agence_depart = ad.id_agence
-            JOIN agences aa ON t.id_agence_arrivee = aa.id_agence
-            WHERE id_auteur = :userId
-        ";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(['userId' => $userId]);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function findWithAgencesById(int $id): ?array

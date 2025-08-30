@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../session.php';
+require __DIR__ . '/../components/session.php';
 ob_start();
 ?>
 <?php if (!empty($_SESSION['success'])): ?>
@@ -79,8 +79,8 @@ ob_start();
             </div>
             </div>
         </div>
-        </div>
-        <?php
+    </div>
+<?php
 // Stockage du contenu dans une variable
 $content = ob_get_clean();
 $title = 'Trajets proposés';

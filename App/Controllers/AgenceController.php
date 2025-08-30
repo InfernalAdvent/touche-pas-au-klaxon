@@ -53,7 +53,7 @@ class AgenceController extends BaseController
 
         $agenceModel = new AgenceModel();
         $agenceModel->delete($id);
-
+        $_SESSION['success'][] = "L'agence a été supprimée";
         header('Location: /touche-pas-au-klaxon/public/agences');
         exit;
     }

@@ -26,7 +26,7 @@ class TrajetController extends BaseController
             exit;
         }
 
-        require __DIR__ . '/../../templates/pages/trajetdetails.php';
+        require __DIR__ . '/../../templates/components/trajetdetails.php';
     }
 
     public function edit(int $id)
@@ -120,7 +120,7 @@ class TrajetController extends BaseController
         }
 
         $trajetModel->delete($id);
-
+        $_SESSION['success'][] = "Le trajet a été supprimé";
         header('Location: /touche-pas-au-klaxon/public');
         exit;
     }

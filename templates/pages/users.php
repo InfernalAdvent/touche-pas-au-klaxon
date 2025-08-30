@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../session.php';
+require __DIR__ . '/../components/session.php';
 ob_start();
 ?>
 
