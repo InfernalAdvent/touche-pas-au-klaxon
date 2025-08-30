@@ -4,7 +4,7 @@ $currentUri = $_SERVER['REQUEST_URI'];
 
 <nav class="navbar navbar-expand-lg custom-secondary" data-bs-theme="light">
   <div class="container-fluid">
-    <a class="navbar-brand custom-secondary" href="/touche-pas-au-klaxon/public">Touche pas au klaxon</a>
+    <a class="navbar-brand custom-primary" href="/touche-pas-au-klaxon/public">Touche pas au klaxon</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

@@ -72,4 +72,29 @@ class TrajetModel extends DefaultModel
         $stmt->execute(['userId' => $userId]);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function findWithAgencesById(int $id): ?array
+    {
+        $sql = "
+            SELECT 
+                t.id_trajet,
+                t.id_auteur,
+                t.date_depart,
+                t.date_arrivee,
+                t.places_disponibles,
+                t.places_totales,
+                ad.nom_agence AS agence_depart,
+                aa.nom_agence AS agence_arrivee
+            FROM {$this->table} t
+            JOIN agences ad ON t.id_agence_depart = ad.id_agence
+            JOIN agences aa ON t.id_agence_arrivee = aa.id_agence
+            WHERE t.{$this->primaryKey} = :id
+        ";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        return $result ?: null;
+    }
 }

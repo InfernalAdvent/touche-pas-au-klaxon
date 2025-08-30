@@ -2,10 +2,25 @@
 require __DIR__ . '/../session.php';
 ob_start();
 ?>
-<h1 class="custom-primary">Modifier trajet #<?= htmlspecialchars($trajet['id_trajet']) ?></h1>
+<?php if (!empty($_SESSION['errors'])): ?>
+    <div class="alert alert-danger w-50 mx-auto text-start">
+        <ul class="mb-0">
+            <?php foreach ($_SESSION['errors'] as $error): ?>
+                <li><?= htmlspecialchars($error) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <?php unset($_SESSION['errors']); ?>
+<?php endif; ?>
+
+<h1 class="custom-primary text-center">Modifier le trajet 
+    <?= htmlspecialchars($trajet['agence_depart']) ?> 
+    <i class="bi bi-arrow-right"></i> 
+    <?= htmlspecialchars($trajet['agence_arrivee']) ?>
+</h1>
 
 <div class="text-center">
-<form class="form-custom" action="/touche-pas-au-klaxon/public/trajet/update/<?= $trajet['id_trajet'] ?>" method="POST">
+<form action="/touche-pas-au-klaxon/public/trajet/update/<?= $trajet['id_trajet'] ?>" method="POST">
   <fieldset>
     <div class="row">
         <div class="mt-4">
@@ -21,11 +36,11 @@ ob_start();
             <input type="number" name="places_disponibles" value="<?= htmlspecialchars($trajet['places_disponibles']) ?>" min="0" required>
         </div>
         <div class="mt-4">
-            <button class="btn btn-primary" type="submit">Enregistrer</button>
+            <button class="btn btn-success" type="submit">Valider</button>
         </div>
 
         <div class="mt-4">
-            <a href="/touche-pas-au-klaxon/public">Retour à la liste des trajets</a>
+            <a class="btn btn-primary" href="/touche-pas-au-klaxon/public">Retour à la liste des trajets</a>
         </div>
     </div>
     </fieldset>

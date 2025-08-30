@@ -2,14 +2,25 @@
 require __DIR__ . '/../session.php';
 ob_start();
 ?>
-<h1 class="custom-primary">Ajouter un trajet</h1>
+<?php if (!empty($_SESSION['errors'])): ?>
+    <div class="alert alert-danger w-50 mx-auto text-start">
+        <ul class="mb-0">
+            <?php foreach ($_SESSION['errors'] as $error): ?>
+                <li><?= htmlspecialchars($error) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <?php unset($_SESSION['errors']); ?>
+<?php endif; ?>
+
+<h1 class="custom-primary text-center mb-2">Ajouter un trajet</h1>
 
 <div class="text-center">
 <form class="form-custom" action="/touche-pas-au-klaxon/public/trajet/add" method="POST">
   <fieldset>
     <div class="row">
         <div>
-            <label for="agence_depart" class="form-label mt-4 custom-primary">Agence de départ</label>
+            <label for="agence_depart" class="form-label mt-2 custom-primary">Agence de départ</label>
             <select class="form-select w-25 mx-auto" name="agence_depart" required>
                 <option value="">-- Choisir une agence --</option>
                 <?php foreach ($agences as $agence): ?>
@@ -38,7 +49,7 @@ ob_start();
             <label class="custom-primary">Date arrivée :</label>
             <input type="datetime-local" name="date_arrivee" required>
         </div>
-        <div class="mt-4"v>
+        <div class="mt-4">
             <label class="custom-primary">Places totales :</label>
             <input type="number" name="places_totales" min="0" required>
         </div>
@@ -49,7 +60,7 @@ ob_start();
         </div>
         
         <div class="mt-4">
-        <button class="btn btn-primary" type="submit">Ajouter</button>
+        <button class="btn btn-success" type="submit">Valider</button>
         </div>
     </fieldset>
 <div class="mt-4 pt-4 text-center">

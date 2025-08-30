@@ -15,7 +15,7 @@ require __DIR__ . '/session.php';
 
     <!-- Header -->
     <header>
-        <div class="container my-4">
+        <div class="container mt-4 mb-2">
             <?php require __DIR__ . '/components/header.php'; ?>
         </div>
     </header>

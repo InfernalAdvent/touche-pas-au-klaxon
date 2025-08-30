@@ -2,13 +2,23 @@
 require __DIR__ . '/../session.php';
 ob_start();
 ?>
+<?php if (!empty($_SESSION['success'])): ?>
+    <div class="alert alert-success">
+        <?php 
+        foreach ($_SESSION['success'] as $msg) {
+            echo htmlspecialchars($msg) . "<br>";
+        }
+        $_SESSION['success'] = [];
+        ?>
+    </div>
+<?php endif; ?>
 <?php if ($userId) : ?>
     <h1 class="custom-primary">Trajets proposés</h1>
 <?php else: ?> 
     <h1 class="custom-primary">Pour obtenir plus d'informations sur un trajet, veuillez vous connecter</h1>
 <?php endif; ?>
-<table class="table table-striped text-center my-4">
-    <thead  class="table table-dark">
+<table class="table table-bordered table-striped text-center my-4">
+    <thead class="table-dark">
         <tr>
             <th class="text-light">Départ</th>
             <th class="text-light">Date</th>
@@ -17,7 +27,9 @@ ob_start();
             <th class="text-light">Date</th>
             <th class="text-light">Heure</th>
             <th class="text-light">Places</th>
+            <?php if ($userId): ?>
             <th></th>
+            <?php endif; ?>
         </tr>
     </thead>
     <?php foreach ($trajets as $trajet): 
@@ -32,22 +44,23 @@ ob_start();
             <td><?= $arrivee->format('d/m/Y') ?></td>
             <td><?= $arrivee->format('H:i') ?></td>
             <td><?= htmlspecialchars($trajet['places_disponibles']) ?></td>
+            
+            <?php if ($userId): ?>
             <td>
-                <?php if ($userId): ?>
-                    <i class="bi bi-eye custom-primary fs-4 btn-details" 
+                <i class="bi bi-eye custom-primary fs-4 btn-details" 
                     role="button"
                     title="Voir détails"
                     data-id="<?= $trajet['id_trajet'] ?>" 
                     data-bs-toggle="modal"
                     data-bs-target="#trajetDetails">
-                    </i>
-                <?php endif; ?>
-
+                </i>
+            
                 <?php if ($role === 'admin' || ($userId && (int)$trajet['id_auteur'] === (int)$userId)): ?>
                     <a href="/touche-pas-au-klaxon/public/trajet/edit/<?= $trajet['id_trajet'] ?>"><i class="bi bi-pencil-square custom-primary fs-4"></i></a>
                     <a href="/touche-pas-au-klaxon/public/trajet/delete/<?= $trajet['id_trajet'] ?>" onclick="return confirm('Confirmer la suppression ?');"><i class="bi bi-trash3 custom-primary fs-4"></i></a>
                 <?php endif; ?>
             </td>
+            <?php endif; ?>
         </tr>
     <?php endforeach; ?>
 </table>

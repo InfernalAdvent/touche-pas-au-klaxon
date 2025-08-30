@@ -5,7 +5,7 @@ ob_start();
     <h1 class="custom-primary">Connexion</h1>
     <form method="POST" action="/touche-pas-au-klaxon/public/login">
         <fieldset>
-            <div class="row w-25 mt-4">
+            <div class="row w-25 mt-2">
                 <label class="custom-primary" for="email">Email :</label>
                 <input type="email" name="email" required>
 

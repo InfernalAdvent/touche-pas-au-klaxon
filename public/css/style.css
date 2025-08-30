@@ -1915,7 +1915,7 @@ progress {
 
 .table-striped > tbody > tr:nth-of-type(odd) > * {
   --bs-table-color-type: var(--bs-table-striped-color);
-  --bs-table-bg-type: var(--bs-table-striped-bg);
+  --bs-table-bg-type: #f1f8fc;
 }
 
 .table-striped-columns > :not(caption) > tr > :nth-child(even) {
@@ -2033,7 +2033,7 @@ progress {
 
 .table-dark {
   --bs-table-color: #fff;
-  --bs-table-bg: #212529;
+  --bs-table-bg: #00497c;
   --bs-table-border-color: rgb(77.4, 80.6, 83.8);
   --bs-table-striped-bg: rgb(44.1, 47.9, 51.7);
   --bs-table-striped-color: #fff;
@@ -3008,8 +3008,8 @@ textarea.form-control-lg {
 
 .btn-success {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #198754;
-  --bs-btn-border-color: #198754;
+  --bs-btn-bg: #82b864;
+  --bs-btn-border-color: #82b864;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: rgb(21.25, 114.75, 71.4);
   --bs-btn-hover-border-color: rgb(20, 108, 67.2);
@@ -3059,8 +3059,8 @@ textarea.form-control-lg {
 
 .btn-danger {
   --bs-btn-color: #fff;
-  --bs-btn-bg: #dc3545;
-  --bs-btn-border-color: #dc3545;
+  --bs-btn-bg: #cd2c2e;
+  --bs-btn-border-color: #cd2c2e;
   --bs-btn-hover-color: #fff;
   --bs-btn-hover-bg: rgb(187, 45.05, 58.65);
   --bs-btn-hover-border-color: rgb(176, 42.4, 55.2);
@@ -3920,7 +3920,7 @@ textarea.form-control-lg {
   white-space: nowrap;
 }
 .navbar-brand:hover, .navbar-brand:focus {
-  color: var(--bs-navbar-brand-hover-color);
+  color: #00497c;
 }
 
 .navbar-nav {
@@ -4828,9 +4828,9 @@ textarea.form-control-lg {
 }
 
 .alert-success {
-  --bs-alert-color: var(--bs-success-text-emphasis);
-  --bs-alert-bg: var(--bs-success-bg-subtle);
-  --bs-alert-border-color: var(--bs-success-border-subtle);
+  --bs-alert-color: #82b864;
+  --bs-alert-bg: #d7e9ce;
+  --bs-alert-border-color: #d7e9ce;
   --bs-alert-link-color: var(--bs-success-text-emphasis);
 }
 
@@ -4849,7 +4849,7 @@ textarea.form-control-lg {
 }
 
 .alert-danger {
-  --bs-alert-color: var(--bs-danger-text-emphasis);
+  --bs-alert-color: #cd2c2e;
   --bs-alert-bg: var(--bs-danger-bg-subtle);
   --bs-alert-border-color: var(--bs-danger-border-subtle);
   --bs-alert-link-color: var(--bs-danger-text-emphasis);
@@ -4932,9 +4932,9 @@ textarea.form-control-lg {
 }
 
 .list-group {
-  --bs-list-group-color: var(--bs-body-color);
+  --bs-list-group-color: #00497c;
   --bs-list-group-bg: var(--bs-body-bg);
-  --bs-list-group-border-color: var(--bs-border-color);
+  --bs-list-group-border-color: #0047c7;
   --bs-list-group-border-width: var(--bs-border-width);
   --bs-list-group-border-radius: var(--bs-border-radius);
   --bs-list-group-item-padding-x: 1rem;
@@ -4954,6 +4954,7 @@ textarea.form-control-lg {
   padding-left: 0;
   margin-bottom: 0;
   border-radius: var(--bs-list-group-border-radius);
+  border: var(--bs-list-group-border-width) solid #0047c7;
 }
 
 .list-group-numbered {
@@ -4972,7 +4973,7 @@ textarea.form-control-lg {
   color: var(--bs-list-group-color);
   text-decoration: none;
   background-color: var(--bs-list-group-bg);
-  border: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
+  border: var(--bs-list-group-border-width) solid #0047c7;
 }
 .list-group-item:first-child {
   border-top-left-radius: inherit;
@@ -11995,7 +11996,7 @@ table td {
 
 .table-dark th,
 .table-dark td, .table-dark.table-hover .table-active:hover > th, .table-dark.table-hover .table-active:hover > td {
-  background-color: #343a40;
+  background-color: #0074c7;
 }
 
 .table-primary,
@@ -12318,4 +12319,9 @@ pre {
 .btn-primary:hover {
   background-color: #00497c; /* couleur au survol */
   border-color: #00497c;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #00497c; /* même couleur que table-dark */
 }
