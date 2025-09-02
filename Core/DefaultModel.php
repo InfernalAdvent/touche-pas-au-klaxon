@@ -4,19 +4,35 @@ namespace Core;
 use Core\Database;
 use PDO;
 
+/**
+ * Classe abstraite DefaultModel
+ *
+ * Fournit des méthodes génériques pour interagir avec une table SQL
+ * Doit être étendue par des modèles concrets
+ *
+ * @package Core
+ */
 abstract class DefaultModel
 {
+    
     protected PDO $db;
     protected string $table;
     protected string $primaryKey = 'id';
 
+    /**
+     * Constructeur
+     *
+     * Initialise la connexion à la base de données.
+     */
     public function __construct()
     {
         $this->db = Database::getInstance();
     }
 
     /**
-     * Récupère tous les enregistrements
+     * Récupère tous les enregistrements de la table
+     *
+     * @return array Liste des enregistrements
      */
     public function findAll(): array
     {
@@ -25,7 +41,10 @@ abstract class DefaultModel
     }
 
     /**
-     * Récupère un enregistrement par son ID
+     * Récupère un enregistrement
+     *
+     * @param int $id Identifiant de l’enregistrement
+     * @return array|null Tableau associatif représentant l’enregistrement, ou null si non trouvé
      */
     public function findById(int $id): ?array
     {
@@ -35,7 +54,10 @@ abstract class DefaultModel
     }
 
     /**
-     * Supprime un enregistrement par son ID
+     * Supprime un enregistrement
+     *
+     * @param int $id Identifiant de l’enregistrement
+     * @return bool True si la suppression a réussi, False sinon
      */
     public function delete(int $id): bool
     {
@@ -43,6 +65,13 @@ abstract class DefaultModel
         return $stmt->execute(['id' => $id]);
     }
 
+    /**
+     * Met à jour un enregistrement
+     *
+     * @param int   $id   Identifiant de l’enregistrement
+     * @param array $data Données à mettre à jour (clé = colonne, valeur = nouvelle valeur)
+     * @return bool True si la mise à jour a réussi, False sinon
+     */
     public function update(int $id, array $data): bool
     {
         $fields = [];
@@ -58,9 +87,15 @@ abstract class DefaultModel
 
         return $stmt->execute($data);
     }
+
+    /**
+     * Insère un nouvel enregistrement dans la table
+     *
+     * @param array $data Données à insérer (clé = colonne, valeur = valeur à insérer)
+     * @return int ID de l’enregistrement inséré
+     */
     public function insert(array $data): int
     {
-        // Récupère les colonnes et prépare les placeholders
         $columns = array_keys($data);
         $placeholders = array_map(fn($col) => ":$col", $columns);
 
@@ -70,11 +105,8 @@ abstract class DefaultModel
         $sql = "INSERT INTO {$this->table} ($columns_sql) VALUES ($placeholders_sql)";
         $stmt = $this->db->prepare($sql);
 
-        // Exécute la requête
         $stmt->execute($data);
 
-        // Retourne l'ID inséré (pratique pour récupérer la ressource)
         return (int)$this->db->lastInsertId();
     }
-
 }

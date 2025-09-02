@@ -4,11 +4,24 @@ namespace App\Models;
 
 use Core\DefaultModel;
 
+/**
+ * Modèle de la table 'trajets'
+ * 
+ * Fournit les méthodes propres à la gestion des trajets
+ * en plus des opérations héritées de DefaultModel
+ * 
+ * @package App\Models 
+ */
 class TrajetModel extends DefaultModel
 {
     protected string $table = 'trajets';
     protected string $primaryKey = 'id_trajet';
-
+    
+    /**
+     * Recherche tous les trajets disponibles avec des places restantes
+     *
+     * @return array[]
+     */
     public function findAvailable(): array
     {
          $sql = "
@@ -30,7 +43,13 @@ class TrajetModel extends DefaultModel
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-
+   
+   /**
+    * Recherche les détails du trajet (avec l'information de l'auteur)
+    *
+    * @param  int $id
+    * @return array
+    */
    public function findDetailsById(int $id): ?array
     {
         $sql = "SELECT u.prenom_user, u.nom_user, u.telephone_user, u.email_user, t.places_totales
@@ -44,7 +63,13 @@ class TrajetModel extends DefaultModel
 
         return $result ?: null;
     }
-
+    
+    /**
+     * Recherche un trajet par son id avec les informations des agences
+     *
+     * @param  int $id
+     * @return array[]
+     */
     public function findWithAgencesById(int $id): ?array
     {
         $sql = "

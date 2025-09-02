@@ -3,8 +3,18 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 
+/**
+ * LoginController
+ *
+ * @package App\Controllers
+ */
 class LoginController extends BaseController
-{   
+{       
+    /**
+     * Permet la connexion de l'utilisateur
+     *
+     * @return void
+     */
     public function login()
     {
         session_start();
@@ -45,7 +55,12 @@ class LoginController extends BaseController
             require __DIR__ . '/../../templates/pages/login.php';
         }
     }
-
+    
+    /**
+     * Permet la déconnexion de l'utilisateur
+     *
+     * @return void
+     */
     public function logout()
     {
         session_start();

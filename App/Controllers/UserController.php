@@ -3,9 +3,18 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 
+/**
+ * UserController
+ * 
+ * @package App\Controllers
+ */
 class UserController extends BaseController
-{
-    // Affichage de la liste
+{    
+    /**
+     * Permet à un admin de récupérer la liste des utilisateurs
+     *
+     * @return void
+     */
     public function users()
     {
         $this->checkAdmin();

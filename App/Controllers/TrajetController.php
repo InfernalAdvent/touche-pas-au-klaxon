@@ -3,8 +3,18 @@ namespace App\Controllers;
 
 use App\Models\TrajetModel;
 
+/**
+ * TrajetController
+ * 
+ * @package App\Controllers
+ */
 class TrajetController extends BaseController
-{
+{    
+    /**
+     * Permet d'afficher les trajets disponibles sur la page d'accueil
+     *
+     * @return void
+     */
     public function trajets()
     {
         $trajetModel = new TrajetModel();
@@ -12,7 +22,13 @@ class TrajetController extends BaseController
 
         require __DIR__ . '/../../templates/pages/home.php';
     }
-
+    
+    /**
+     * Permet d'afficher les détails d'un trajet
+     *
+     * @param  int $id
+     * @return void
+     */
     public function details(int $id)
     {   
         $this->checkLoggedIn();
@@ -28,7 +44,13 @@ class TrajetController extends BaseController
 
         require __DIR__ . '/../../templates/components/trajetdetails.php';
     }
-
+    
+    /**
+     * Permet à l'auteur ou à un admin d'accéder à la page d'édition du trajet voulu
+     *
+     * @param  int $id
+     * @return void
+     */
     public function edit(int $id)
     {
         $this->checkLoggedIn();
@@ -48,7 +70,13 @@ class TrajetController extends BaseController
 
         require __DIR__ . '/../../templates/pages/trajet_edit.php';
     }
-
+    
+    /**
+     * Permet à l'auteur ou à un admin de modifier le trajet voulu
+     *
+     * @param  int $id
+     * @return void
+     */
     public function update(int $id)
     {
         $this->checkLoggedIn();
@@ -101,7 +129,13 @@ class TrajetController extends BaseController
         }
     }
 
-
+    
+    /**
+     * Permet à l'auteur ou à un admin de supprimer le trajet voulu
+     *
+     * @param  mixed $id
+     * @return void
+     */
     public function delete(int $id)
     {
         $this->checkLoggedIn();
@@ -124,7 +158,12 @@ class TrajetController extends BaseController
         header('Location: /touche-pas-au-klaxon/public');
         exit;
     }
-
+    
+    /**
+     * Permet l'ajout d'un nouveau trajet à un utilisateur connecté
+     *
+     * @return void
+     */
     public function add()
     {
         $this->checkLoggedIn();
