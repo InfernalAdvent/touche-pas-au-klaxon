@@ -4,7 +4,8 @@ namespace App\Controllers;
 use App\Models\UserModel;
 
 /**
- * LoginController
+ * Controller gérant la connexion et la déconnexion des utilisateurs
+ * en utilisant les functions du BaseController
  *
  * @package App\Controllers
  */

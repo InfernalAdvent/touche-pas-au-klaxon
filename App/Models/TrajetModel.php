@@ -20,7 +20,7 @@ class TrajetModel extends DefaultModel
     /**
      * Recherche tous les trajets disponibles avec des places restantes
      *
-     * @return array[]
+     * @return array<int, array<string, mixed>>
      */
     public function findAvailable(): array
     {
@@ -48,7 +48,7 @@ class TrajetModel extends DefaultModel
     * Recherche les détails du trajet (avec l'information de l'auteur)
     *
     * @param  int $id
-    * @return array
+    * @return array<string, mixed>
     */
    public function findDetailsById(int $id): ?array
     {
@@ -68,7 +68,7 @@ class TrajetModel extends DefaultModel
      * Recherche un trajet par son id avec les informations des agences
      *
      * @param  int $id
-     * @return array[]
+     * @return array<string, mixed>
      */
     public function findWithAgencesById(int $id): ?array
     {

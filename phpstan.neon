@@ -1,0 +1,12 @@
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
+parameters:
+    level: 6   # de 0 (basique) à 9 (strict)
+    paths:
+        - App/Controllers
+        - App/Models
+        - Core
+        - Routeur
+    bootstrapFiles:
+        - vendor/autoload.php

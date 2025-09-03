@@ -2,7 +2,7 @@
 namespace App\Controllers;
 
 /**
- * BaseController
+ * Controller gérant le login et le role des utilisateurs
  * 
  * @package App\Controllers
  */

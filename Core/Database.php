@@ -13,7 +13,12 @@ use PDOException;
  * @package Core
  */
 class Database {
-    private static $pdo;
+    /**
+     * Instance unique de PDO (ou null si non initialisée).
+     *
+     * @var PDO|null
+     */
+    private static ?PDO $pdo = null;
 
     /**
      * Retourne l’instance unique de PDO.
@@ -24,17 +29,13 @@ class Database {
      * @throws PDOException Si la connexion échoue
      */
     public static function getInstance(): PDO {
-        if (self::$pdo === null) {
-            try {
-                self::$pdo = new PDO(
-                    'mysql:host=localhost;dbname=touche_pas_au_klaxon;charset=utf8',
-                    'root',
-                    '',
-                    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-                );
-            } catch (PDOException $e) {
-                die('Erreur de connexion : ' . $e->getMessage());
-            }
+        if (self::$pdo === null) { 
+            self::$pdo = new PDO(
+                'mysql:host=localhost;dbname=touche_pas_au_klaxon;charset=utf8',
+                'root',
+                '',
+                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+            );
         }
         return self::$pdo;
     }

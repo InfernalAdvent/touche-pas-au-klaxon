@@ -4,7 +4,8 @@ namespace App\Controllers;
 use App\Models\UserModel;
 
 /**
- * UserController
+ * Controller gérant les actions liée aux utilisateurs
+ * en utilisant les functions du BaseController
  * 
  * @package App\Controllers
  */

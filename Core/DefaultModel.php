@@ -32,7 +32,7 @@ abstract class DefaultModel
     /**
      * Récupère tous les enregistrements de la table
      *
-     * @return array Liste des enregistrements
+     * @return array<int, array<string, mixed>>
      */
     public function findAll(): array
     {
@@ -44,7 +44,7 @@ abstract class DefaultModel
      * Récupère un enregistrement
      *
      * @param int $id Identifiant de l’enregistrement
-     * @return array|null Tableau associatif représentant l’enregistrement, ou null si non trouvé
+     * @return array<string, mixed>|null Tableau associatif représentant l’enregistrement, ou null si non trouvé
      */
     public function findById(int $id): ?array
     {
@@ -69,7 +69,7 @@ abstract class DefaultModel
      * Met à jour un enregistrement
      *
      * @param int   $id   Identifiant de l’enregistrement
-     * @param array $data Données à mettre à jour (clé = colonne, valeur = nouvelle valeur)
+     * @param array<string, mixed> $data Données à mettre à jour
      * @return bool True si la mise à jour a réussi, False sinon
      */
     public function update(int $id, array $data): bool
@@ -91,7 +91,7 @@ abstract class DefaultModel
     /**
      * Insère un nouvel enregistrement dans la table
      *
-     * @param array $data Données à insérer (clé = colonne, valeur = valeur à insérer)
+     * @param array<string, mixed> $data Données à insérer 
      * @return int ID de l’enregistrement inséré
      */
     public function insert(array $data): int

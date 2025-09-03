@@ -4,7 +4,8 @@ namespace App\Controllers;
 use App\Models\TrajetModel;
 
 /**
- * TrajetController
+ * Controller gérant les actions liée aux trajets
+ * en utilisant les functions du BaseController
  * 
  * @package App\Controllers
  */
@@ -133,7 +134,7 @@ class TrajetController extends BaseController
     /**
      * Permet à l'auteur ou à un admin de supprimer le trajet voulu
      *
-     * @param  mixed $id
+     * @param  int $id
      * @return void
      */
     public function delete(int $id)

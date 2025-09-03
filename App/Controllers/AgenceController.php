@@ -4,7 +4,8 @@ namespace App\Controllers;
 use App\Models\AgenceModel;
 
 /**
- * AgenceController
+ * Controller gérant les actions liées aux agences
+ * en utilisant les functions du BaseController
  * 
  * @package App\Controllers
  */

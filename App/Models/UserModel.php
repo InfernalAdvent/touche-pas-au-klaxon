@@ -20,7 +20,7 @@ class UserModel extends DefaultModel
      * Recherche un utilisateur par son email
      *
      * @param  string $email
-     * @return array
+     * @return array<string, mixed>|null
      */
     public function findByEmail(string $email): ?array
     {
@@ -33,7 +33,7 @@ class UserModel extends DefaultModel
      *
      * @param  string $email
      * @param  string $password
-     * @return array[]
+     * @return array<string, mixed>|null
      */
     public function verifyPassword(string $email, string $password): ?array
     {

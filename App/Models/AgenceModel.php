@@ -21,7 +21,7 @@ class AgenceModel extends DefaultModel
      * Recherche les agences où le nom correspond
      *
      * @param  string $name
-     * @return array[] tableau avec le nom des agences
+     * @return array<int, array<string, mixed>>
      */
     public function findByName(string $name): array 
     {
