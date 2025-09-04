@@ -212,6 +212,7 @@ class TrajetController extends BaseController
                     "places_totales" => $places_totales,
                     'id_auteur' => $_SESSION['user']['id']
                 ]);
+                $_SESSION['success'][] = "Le trajet a été ajouté";
                 header('Location: /touche-pas-au-klaxon/public');
                 exit;
             } else {

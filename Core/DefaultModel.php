@@ -20,13 +20,13 @@ abstract class DefaultModel
     protected string $primaryKey = 'id';
 
     /**
-     * Constructeur
+     * Constructeur avec une instance PDO vers la base de données de test
      *
      * Initialise la connexion à la base de données.
      */
-    public function __construct()
+    public function __construct(?PDO $pdo = null)
     {
-        $this->db = Database::getInstance();
+        $this->db = $pdo ?? Database::getInstance();
     }
 
     /**

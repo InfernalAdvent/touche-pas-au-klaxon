@@ -8,5 +8,6 @@ parameters:
         - App/Models
         - Core
         - Routeur
+        - tests
     bootstrapFiles:
         - vendor/autoload.php
