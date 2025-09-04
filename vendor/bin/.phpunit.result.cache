@@ -1,0 +1,1 @@
+{"version":1,"defects":{"UserModelTest::testInsertUser":7,"UserModelTest::testUpdateUser":7,"UserModelTest::testDeleteUser":8},"times":{"UserModelTest::testInsertUser":0.008,"UserModelTest::testUpdateUser":0.006,"UserModelTest::testDeleteUser":0.013}}

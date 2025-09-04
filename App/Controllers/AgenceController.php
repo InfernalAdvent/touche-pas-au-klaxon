@@ -3,9 +3,19 @@ namespace App\Controllers;
 
 use App\Models\AgenceModel;
 
+/**
+ * Controller gérant les actions liées aux agences
+ * en utilisant les functions du BaseController
+ * 
+ * @package App\Controllers
+ */
 class AgenceController extends BaseController
-{
-    // Affichage de la liste
+{    
+    /**
+     * Permet d'afficher la liste des agences
+     *
+     * @return void
+     */
     public function agences()
     {
         $this->checkAdmin();
@@ -15,8 +25,12 @@ class AgenceController extends BaseController
 
         require __DIR__ . '/../../templates/pages/agences.php';
     }
-
-    // Ajout d'une agence
+    
+    /**
+     * Permet à un admin d'ajouter une agence
+     *
+     * @return void
+     */
     public function add()
     {
         $this->checkAdmin();
@@ -45,15 +59,20 @@ class AgenceController extends BaseController
 
         require __DIR__ . '/../../templates/pages/agences.php';
     }
-
-    // Suppression d'une agence
+    
+    /**
+     * Permet à un admin de supprimer une agence
+     *
+     * @param  int $id
+     * @return void
+     */
     public function delete(int $id)
     {
         $this->checkAdmin();
 
         $agenceModel = new AgenceModel();
         $agenceModel->delete($id);
-
+        $_SESSION['success'][] = "L'agence a été supprimée";
         header('Location: /touche-pas-au-klaxon/public/agences');
         exit;
     }
